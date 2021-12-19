@@ -62,14 +62,6 @@
 				</anchored>
 				<frame name="fieldlight" offset="7,5,7,5" />
 			</number_charskillfield_static>
-
-			<number_charskillfield_static name="race" insertbefore="stat">
-				<anchored width="32" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-15" />
-				</anchored>
-				<frame name="fieldlight" offset="7,5,7,5" />
-			</number_charskillfield_static>
 		</sheetdata>
 	</windowclass>
 </root>
