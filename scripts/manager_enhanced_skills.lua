@@ -65,7 +65,6 @@ function SetSynergyValue(nodeChar, sSkillName, skillNameSynergy, nSynergyMod)
 		end
 
 		if foundSkillName == skillNameSynergy then
-            Debug.chat(sSkillName)
 			DB.setValue(v, "es." .. sSkillName, "number", nSynergyMod)
 			local tES = DB.getChildren(v, "es")
 			local totalSynergyMod = 0
