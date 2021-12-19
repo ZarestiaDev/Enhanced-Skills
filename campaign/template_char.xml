@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="number_charskillranks">
+		<basicnumber>
+			<delaykeyupdate />
+			<hideonvalue>0</hideonvalue>
+			<nodrag />
+			<min>0</min>
+			<script>
+				function onWheel(notches)
+					if not Input.isControlPressed() then
+						return false;
+					end
+
+					if not Input.isShiftPressed() then
+						setValue(getValue() + notches);
+					else
+						setValue(getValue() + (notches * 0.5));
+					end
+					
+					return true;
+				end
+
+				function onValueChanged()
+					CharManager.updateSkillPoints(window.getDatabaseNode().getChild("..."));
+                    -- Zarestia adding function
+                    EnhancedSkillManager.CalculateSynergy(window.getDatabaseNode());
+				end
+			</script>
+		</basicnumber>
+	</template>
+</root>

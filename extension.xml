@@ -19,9 +19,12 @@
 
 	<announcement text="3.5E/PFRPG Enhanced Skills - v1.0 \rby Zarestia, 2021\r---" font="emotefont"/>
 
-	<base>		
+	<base>
+	<!-- High-Level Scripts -->
+		<script name="EnhancedSkillManager" file="scripts/manager_enhanced_skills.lua" />
 	<!-- Campaign -->
 		<includefile source="campaign/record_char_skills.xml" />
+		<includefile source="campaign/template_char.xml" />
     <!-- Strings -->
         <includefile source="strings/es_strings.xml" />
 	</base>
