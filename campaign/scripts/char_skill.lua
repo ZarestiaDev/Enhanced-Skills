@@ -103,6 +103,11 @@ end
 function CalculateSynergy()
 	local nodeChar = getDatabaseNode()
 	local sSkillName = DB.getValue(nodeChar, "label")
+	local sSubSkillName = DB.getValue(nodeChar, "sublabel")
+
+	if sSubSkillName ~= "" then
+		sSkillName = sSkillName .. " " .. sSubSkillName
+	end
 
 	for k,table in pairs(tSynergy) do
 		local sTableSkillName = k
@@ -110,12 +115,16 @@ function CalculateSynergy()
 		if sSkillName == sTableSkillName then
 			local sRanks = DB.getValue(nodeChar, "ranks")
 
+			Debug.chat("Data", sSkillName, sTableSkillName, sRanks)
+
 			for _,v in pairs(table) do
 				local sTableSkillSynergyName = v
 				if sRanks >= 5 then
 					SetSynergyValue(nodeChar, sSkillName, sTableSkillSynergyName, 2)
+					--Debug.console("5")
 				else
 					SetSynergyValue(nodeChar, sSkillName, sTableSkillSynergyName, 0)
+					--Debug.console("0")
 				end
 			end
 		end
@@ -136,7 +145,12 @@ function SetSynergyValue(nodeChar, sSkillName, skillNameSynergy, nSynergyMod)
 
 	for _,v in pairs(tActorSkills) do
 		local foundSkillName = DB.getValue(v, "label")
+		local foundSubSkillName = DB.getValue(v, "sublabel")
 
+		if foundSubSkillName ~= "" and foundSubSkillName ~= nil then
+			foundSkillName = foundSkillName .. " " .. foundSubSkillName
+		end
+		
 		if foundSkillName == skillNameSynergy then
 			DB.setValue(v, "es." .. sSkillName, "number", nSynergyMod)
 			local tES = DB.getChildren(v, "es")
