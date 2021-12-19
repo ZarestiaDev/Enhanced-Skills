@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root version="4.1" >
+	<properties>
+		<name>Feature: Enhanced Skills</name>
+		<version>1.0</version>
+		<loadorder>99</loadorder>
+		<description>
+			<text>Enhanced Skills adding skill synergy, total skill points and racial skill bonus</text>
+			<author>Zarestia</author>
+		</description>
+		<ruleset>
+			<name>3.5E</name>
+		</ruleset>
+		<ruleset>
+			<name>PFRPG</name>
+		</ruleset>
+	</properties>
+
+	<announcement text="3.5E/PFRPG Enhanced Skills - v1.0 \rby Zarestia, 2021\r---" font="emotefont"/>
+
+	<base>		
+	<!-- Campaign -->
+		<includefile source="campaign/record_char_skills.xml" />
+    <!-- Strings -->
+        <includefile source="strings/es_strings.xml" />
+	</base>
+</root>

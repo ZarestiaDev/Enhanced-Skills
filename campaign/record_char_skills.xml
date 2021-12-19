@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_skills" merge="join">
+		<!-- Added Script -->
+		<script file="campaign/scripts/es_skill.lua" />
+		<sheetdata>
+			<!-- Added slash label -->
+			<label name="spent_label_from">
+				<anchored to="spentskillpoints" position="righthigh" offset="7" />
+				<static textres="char_label_skillpointsspentfrom" />
+			</label>
+			<!-- Added total number field -->
+			<simplenumber name="totalskillpoints" source="es.totalskillranks">
+				<anchored to="spent_label_from" position="right" offset="7" width="32" />
+				<frame name="fieldlight" offset="7,5,7,5" />
+				<readonly />
+				<nodrag />
+			</simplenumber>
+		</sheetdata>
+	</windowclass>
+
+
+	<windowclass name="char_skill" merge="join">
+		<script file="campaign/scripts/char_skill.lua" />
+		<sheetdata>
+            <label name="trainedonly">
+                <anchored>
+					<top offset="3" />
+					<left offset="6" />
+                </anchored>
+                <static textres="label_trained" />
+				<invisible />
+            </label>
+
+			<!-- Changed bounds -->
+			<button_checkbox name="showonminisheet">
+				<bounds>16,6,12,12</bounds>
+			</button_checkbox>
+			<button_checkbox name="state">
+				<bounds>32,6,12,12</bounds>
+			</button_checkbox>
+
+			<!-- Changed left offset -->
+			<stringu name="label">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="50" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</stringu>
+
+			<number_charskillfield_static name="synergy" insertbefore="stat">
+				<anchored width="32" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-15" />
+				</anchored>
+				<frame name="fieldlight" offset="7,5,7,5" />
+			</number_charskillfield_static>
+
+			<number_charskillfield_static name="race" insertbefore="stat">
+				<anchored width="32" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-15" />
+				</anchored>
+				<frame name="fieldlight" offset="7,5,7,5" />
+			</number_charskillfield_static>
+		</sheetdata>
+	</windowclass>
+</root>
