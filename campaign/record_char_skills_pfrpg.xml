@@ -154,16 +154,6 @@
 				<static textres="char_label_skillmisc" />
 				<center />
 			</label>
-			<!-- Add label -->
-			<label name="char_label_skillsynergy">
-				<anchored to="rightanchor" width="32">
-					<top />
-					<right anchor="left" relation="relative" offset="-15" />
-				</anchored>
-				<center />
-				<static textres="char_label_skillsynergy" />
-				<tooltip textres="char_tooltip_skillsynergy" />
-			</label>
 			<label>
 				<anchored to="rightanchor" width="77">
 					<top />
@@ -175,7 +165,7 @@
 			<label>
 				<anchored to="rightanchor" width="42">
 					<top />
-					<right anchor="left" relation="relative" offset="5" />
+					<right anchor="left" relation="relative" offset="0" />
 				</anchored>
 				<center />
 				<static textres="char_label_skillranks" />
@@ -226,14 +216,6 @@
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
 			</stringu>
-
-			<number_charskillfield_static name="synergy" insertbefore="stat">
-				<anchored width="28" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-15" />
-				</anchored>
-				<frame name="fieldlight" offset="7,5,7,5" />
-			</number_charskillfield_static>
 		</sheetdata>
 	</windowclass>
 </root>

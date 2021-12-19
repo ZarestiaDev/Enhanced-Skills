@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<root version="4.1" >
+<root version="4.1">
 	<properties>
 		<name>Feature: Enhanced Skills</name>
 		<version>1.0</version>
@@ -23,8 +23,9 @@
 	<!-- High-Level Scripts -->
 		<script name="EnhancedSkillManager" file="scripts/manager_enhanced_skills.lua" />
 	<!-- Campaign -->
-		<includefile source="campaign/record_char_skills.xml" />
-		<includefile source="campaign/template_char.xml" />
+		<includefile ruleset="3.5E" source="campaign/record_char_skills.xml" />
+		<includefile ruleset="PFRPG" source="campaign/record_char_skills_pfrpg.xml" />
+		<includefile ruleset="3.5E" source="campaign/template_char.xml" />
     <!-- Strings -->
         <includefile source="strings/es_strings.xml" />
 	</base>
