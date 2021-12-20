@@ -13,6 +13,11 @@
 			<nodrag />
 			<min>0</min>
 			<script>
+				--Zarestia adding onInit for already existing snyergies
+				function onInit()
+					EnhancedSkillManager.CalculateSynergy(window.getDatabaseNode());
+				end
+
 				function onWheel(notches)
 					if not Input.isControlPressed() then
 						return false;
