@@ -3,7 +3,7 @@
 <root version="4.1">
 	<properties>
 		<name>Feature: Enhanced Skills</name>
-		<version>1.0</version>
+		<version>1.1</version>
 		<loadorder>99</loadorder>
 		<description>
 			<text>Enhanced Skills adding skill synergy, total skill points and trained</text>
@@ -17,7 +17,7 @@
 		</ruleset>
 	</properties>
 
-	<announcement text="3.5E/PFRPG Enhanced Skills - v1.0 \rby Zarestia, 2021\r---" font="emotefont"/>
+	<announcement text="3.5E/PFRPG Enhanced Skills - v1.1 \rby Zarestia, 2022\r---" font="emotefont"/>
 
 	<base>
 	<!-- High-Level Scripts -->
