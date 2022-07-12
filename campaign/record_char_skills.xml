@@ -6,14 +6,6 @@
 -->
 
 <root>
-	<windowclass name="charsheet_skills" merge="join">
-		<!-- Added Script -->
-		
-		<sheetdata>
-
-		</sheetdata>
-	</windowclass>
-
 	<windowclass name="charsheet_skills">
 		<script file="campaign/scripts/es_skill.lua" />
 		<sheetdata>
