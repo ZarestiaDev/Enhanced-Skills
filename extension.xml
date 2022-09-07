@@ -3,7 +3,7 @@
 <root version="4.1">
 	<properties>
 		<name>Feature: Enhanced Skills</name>
-		<version>1.1</version>
+		<version>1.2</version>
 		<loadorder>99</loadorder>
 		<description>
 			<text>Enhanced Skills adding skill synergy, total skill points and trained</text>
@@ -17,16 +17,21 @@
 		</ruleset>
 	</properties>
 
-	<announcement text="3.5E/PFRPG Enhanced Skills - v1.1 \nby Zarestia, 2022" font="emotefont"/>
+	<announcement text="https://forge.fantasygrounds.com/shop/items/410/view \n3.5E/PFRPG Enhanced Skills - v1.2 \nby Zarestia" font="emotefont" icon="es_icon" />
 
 	<base>
-	<!-- High-Level Scripts -->
+		<!-- High-Level Scripts -->
 		<script name="EnhancedSkillManager" file="scripts/manager_enhanced_skills.lua" />
-	<!-- Campaign -->
+
+		<!-- Campaign -->
 		<includefile ruleset="3.5E" source="campaign/record_char_skills.xml" />
 		<includefile ruleset="PFRPG" source="campaign/record_char_skills_pfrpg.xml" />
 		<includefile ruleset="3.5E" source="campaign/template_char.xml" />
-    <!-- Strings -->
+
+    	<!-- Strings -->
         <includefile source="strings/strings_es.xml" />
+
+		<!-- Icon -->
+		<icon name="es_icon" file="graphics/es_icon.png" />
 	</base>
 </root>
