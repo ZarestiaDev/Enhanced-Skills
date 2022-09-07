@@ -17,7 +17,7 @@
 		</ruleset>
 	</properties>
 
-	<announcement text="3.5E/PFRPG Enhanced Skills - v1.1 \rby Zarestia, 2022\r---" font="emotefont"/>
+	<announcement text="3.5E/PFRPG Enhanced Skills - v1.1 \nby Zarestia, 2022" font="emotefont"/>
 
 	<base>
 	<!-- High-Level Scripts -->
@@ -27,6 +27,6 @@
 		<includefile ruleset="PFRPG" source="campaign/record_char_skills_pfrpg.xml" />
 		<includefile ruleset="3.5E" source="campaign/template_char.xml" />
     <!-- Strings -->
-        <includefile source="strings/es_strings.xml" />
+        <includefile source="strings/strings_es.xml" />
 	</base>
 </root>

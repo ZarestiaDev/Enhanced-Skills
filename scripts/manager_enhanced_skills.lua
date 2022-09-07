@@ -16,31 +16,26 @@ local tSynergy = {
 	["Sense Motive"] = {"Diplomacy"},
 	["Survival"] = {"Knowledge (nature)"},
 	["Tumble"] = {"Balance", "Jump"}
-}
---[[
-	This goes through the tSynergy table and sets the needed arguments
-	for the SetSynergyValue function
-]]
+};
+
+--This goes through the tSynergy table and sets the needed arguments for the SetSynergyValue function
 function CalculateSynergy(nodeChar)
-	local sSkillName = DB.getValue(nodeChar, "label")
-	local sSubSkillName = DB.getValue(nodeChar, "sublabel")
+	local sSkillName = DB.getValue(nodeChar, "label"):lower();
+	local sSubSkillName = DB.getValue(nodeChar, "sublabel"):lower();
 
 	if sSubSkillName ~= "" then
-		sSkillName = sSkillName .. " " .. sSubSkillName
+		sSkillName = sSkillName .. " " .. sSubSkillName;
 	end
 
-	for k,table in pairs(tSynergy) do
-		local sTableSkillName = k
+	for sSkill,tSkills in pairs(tSynergy) do
+		if sSkillName == sSkill:lower() then
+			local sRanks = DB.getValue(nodeChar, "ranks");
 
-		if sSkillName == sTableSkillName then
-			local sRanks = DB.getValue(nodeChar, "ranks")
-
-			for _,v in pairs(table) do
-				local sTableSkillSynergyName = v
+			for _,sSynergySkill in ipairs(tSkills) do
 				if sRanks >= 5 then
-					SetSynergyValue(nodeChar, sSkillName, sTableSkillSynergyName, 2)
+					SetSynergyValue(nodeChar, sSkillName, sSynergySkill, 2);
 				else
-					SetSynergyValue(nodeChar, sSkillName, sTableSkillSynergyName, 0)
+					SetSynergyValue(nodeChar, sSkillName, sSynergySkill, 0);
 				end
 			end
 		end
