@@ -15,7 +15,7 @@
 			<script>
 				--Zarestia adding onInit for already existing snyergies
 				function onInit()
-					EnhancedSkillManager.CalculateSynergy(window.getDatabaseNode());
+					EnhancedSkillManager.SetSynergy(window.getDatabaseNode());
 				end
 
 				function onWheel(notches)
@@ -35,7 +35,7 @@
 				function onValueChanged()
 					CharManager.updateSkillPoints(window.getDatabaseNode().getChild("..."));
                     -- Zarestia adding function
-                    EnhancedSkillManager.CalculateSynergy(window.getDatabaseNode());
+                    EnhancedSkillManager.SetSynergy(window.getDatabaseNode());
 				end
 			</script>
 		</basicnumber>

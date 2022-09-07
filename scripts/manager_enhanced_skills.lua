@@ -4,72 +4,71 @@
 --
 
 local tSynergy = {
-	["Autohypnosis"] = {"Knowledge (psionics)"},
-	["Bluff"] = {"Diplomacy", "Intimidate", "Sleight of Hand"},
-	["Concentration"] = {"Autohypnosis"},
-	["Handle Animal"] = {"Ride", "Wild Empathy"},
-	["Jump"] = {"Tumble"},
-	["Knowledge (arcana)"] = {"Spellcraft"},
-	["Knowledge (history)"] = {"Bardic Knowledge"},
-	["Knowledge (nobility and royalty)"] = {"Diplomacy"},
-	["Knowledge (psionics)"] = {"Psicraft"},
-	["Sense Motive"] = {"Diplomacy"},
-	["Survival"] = {"Knowledge (nature)"},
-	["Tumble"] = {"Balance", "Jump"}
+	["autohypnosis"] = {"knowledge (psionics)"},
+	["bluff"] = {"diplomacy", "intimidate", "sleight of hand"},
+	["concentration"] = {"autohypnosis"},
+	["handle animal"] = {"ride", "wild empathy"},
+	["jump"] = {"tumble"},
+	["knowledge (arcana)"] = {"spellcraft"},
+	["knowledge (history)"] = {"bardic knowledge"},
+	["knowledge (nobility and royalty)"] = {"diplomacy"},
+	["knowledge (psionics)"] = {"psicraft"},
+	["sense motive"] = {"diplomacy"},
+	["survival"] = {"knowledge (nature)"},
+	["tumble"] = {"balance", "jump"}
 };
 
 --This goes through the tSynergy table and sets the needed arguments for the SetSynergyValue function
-function CalculateSynergy(nodeChar)
-	local sSkillName = DB.getValue(nodeChar, "label"):lower();
-	local sSubSkillName = DB.getValue(nodeChar, "sublabel"):lower();
+function SetSynergy(nodeChar)
+	local sSkillName = DB.getValue(nodeChar, "label", ""):lower();
+	local sSubSkillName = DB.getValue(nodeChar, "sublabel", ""):lower();
 
 	if sSubSkillName ~= "" then
 		sSkillName = sSkillName .. " " .. sSubSkillName;
 	end
 
-	for sSkill,tSkills in pairs(tSynergy) do
-		if sSkillName == sSkill:lower() then
-			local sRanks = DB.getValue(nodeChar, "ranks");
+	for sSourceSkill,_ in pairs(tSynergy) do
+		if sSkillName == sSourceSkill then
+			local nRanks = DB.getValue(nodeChar, "ranks");
 
-			for _,sSynergySkill in ipairs(tSkills) do
-				if sRanks >= 5 then
-					SetSynergyValue(nodeChar, sSkillName, sSynergySkill, 2);
-				else
-					SetSynergyValue(nodeChar, sSkillName, sSynergySkill, 0);
-				end
+			if nRanks >= 5 then
+				SetSynergyValue(nodeChar, sSourceSkill, 2);
+			else
+				SetSynergyValue(nodeChar, sSourceSkill, 0);
 			end
 		end
 	end
 end
---[[
-	sSkillName = source Skill Name (key of tSynergy)
-	skillNameSynergy = Name of the synergized Skill (value of tSynergy)
-	nSynergyMod = Mod, either 0 or 2
-	Sets a new db node mimicking the tSynergy table. All single mods get added together and set.
-]]
-function SetSynergyValue(nodeChar, sSkillName, skillNameSynergy, nSynergyMod)
-	local rActorSkills = DB.getParent(nodeChar)
-	local tActorSkills = DB.getChildren(rActorSkills)
 
-	for _,v in pairs(tActorSkills) do
-		local foundSkillName = DB.getValue(v, "label")
-		local foundSubSkillName = DB.getValue(v, "sublabel")
+function SetSynergyValue(nodeChar, sSourceSkill, nSynergyMod)
+	local tNodeSkills = DB.getParent(nodeChar).getChildren();
 
-		if foundSubSkillName ~= "" and foundSubSkillName ~= nil then
-			foundSkillName = foundSkillName .. " " .. foundSubSkillName
-		end
+	for _,sSynergy in ipairs(tSynergy[sSourceSkill]) do
+		for _,nodeSkill in pairs(tNodeSkills) do
+			local sSkillName = DB.getValue(nodeSkill, "label", ""):lower();
+			local sSubSkillName = DB.getValue(nodeSkill, "sublabel", ""):lower();
 
-		if foundSkillName == skillNameSynergy then
-			DB.setValue(v, "es." .. sSkillName, "number", nSynergyMod)
-			local tES = DB.getChildren(v, "es")
-			local totalSynergyMod = 0
-
-			for _,es_value in pairs(tES) do
-				local sSynergyMod = es_value.getValue()
-				totalSynergyMod = totalSynergyMod + sSynergyMod
+			if sSubSkillName ~= "" then
+				sSkillName = sSkillName .. " " .. sSubSkillName;
 			end
 
-			DB.setValue(v, "synergy", "number", totalSynergyMod)
+			if sSkillName == sSynergy then
+				DB.deleteChildren(nodeSkill, "es");
+				DB.setValue(nodeSkill, "es." .. sSourceSkill, "number", nSynergyMod);
+				
+				CalculateSynergy(nodeSkill);
+			end
 		end
 	end
+end
+
+function CalculateSynergy(nodeSkill)
+	local tAllSynergies = DB.getChildren(nodeSkill, "es");
+	local totalSynergyMod = 0;
+
+	for _,v in pairs(tAllSynergies) do
+		totalSynergyMod = totalSynergyMod + DB.getValue(v, "", 0);
+	end
+
+	DB.setValue(nodeSkill, "synergy", "number", totalSynergyMod);
 end
