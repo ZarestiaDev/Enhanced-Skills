@@ -33,7 +33,7 @@
 				end
 
 				function onValueChanged()
-					CharManager.updateSkillPoints(window.getDatabaseNode().getChild("..."));
+					CharManager.updateSkillPoints(DB.getChild(window.getDatabaseNode(), "..."));
                     -- Zarestia adding function
                     EnhancedSkillManager.SetSynergy(window.getDatabaseNode());
 				end
@@ -61,9 +61,9 @@
 					if sourcename == "ranks" then
 						return math.floor(source.getValue());
 					elseif sourcename == "...encumbrance.armorcheckpenalty" then
-						local bMaxActive = sources["...encumbrance.armormaxstatbonusactive"].getValue();
+						local bMaxActive = DB.getValue(sources["...encumbrance.armormaxstatbonusactive"]);
 						if bMaxActive &gt; 0 then
-							return math.min(DB.getValue(window.getDatabaseNode(), "armorcheckmultiplier", 0) * source.getValue(), 0);
+							return math.min(DB.getValue(window.getDatabaseNode(), "armorcheckmultiplier", 0) * DB.getValue(source), 0);
 						end
 						return 0;
 					elseif sourcename == "state" then
@@ -85,7 +85,7 @@
 				function action(draginfo)
 					local nodeWin = window.getDatabaseNode();
 					if nodeWin then
-						local rActor = ActorManager.resolveActor(nodeWin.getChild("..."));
+						local rActor = ActorManager.resolveActor(DB.getChild(nodeWin, "..."));
 						ActionSkill.performPCRoll(draginfo, rActor, nodeWin);
 					end
 					return true;

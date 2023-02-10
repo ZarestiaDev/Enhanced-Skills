@@ -12,10 +12,9 @@ end
 -- Zarestia adds CalculateSkills function
 function CalculateSkills()
     local nodeChar = getDatabaseNode();
-    local tClasses = DB.getChildren(nodeChar.getChild("classes"));
     local nTotalSkillRanks = 0;
 
-    for _,nodeClass in pairs(tClasses) do
+    for _,nodeClass in pairs(DB.getChildList(DB.getChild(nodeChar, "classes"))) do
         local nSkillRanks = DB.getValue(nodeClass, "skillranks", 0);
         nTotalSkillRanks = nTotalSkillRanks + nSkillRanks;
     end

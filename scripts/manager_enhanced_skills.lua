@@ -41,10 +41,8 @@ function SetSynergy(nodeChar)
 end
 
 function SetSynergyValue(nodeChar, sSourceSkill, nSynergyMod)
-	local tNodeSkills = DB.getParent(nodeChar).getChildren();
-
 	for _,sSynergy in ipairs(tSynergy[sSourceSkill]) do
-		for _,nodeSkill in pairs(tNodeSkills) do
+		for _,nodeSkill in ipairs(DB.getChildList(DB.getParent(nodeChar))) do
 			local sSkillName = DB.getValue(nodeSkill, "label", ""):lower();
 			local sSubSkillName = DB.getValue(nodeSkill, "sublabel", ""):lower();
 
@@ -53,7 +51,6 @@ function SetSynergyValue(nodeChar, sSourceSkill, nSynergyMod)
 			end
 
 			if sSkillName == sSynergy then
-				DB.deleteChildren(nodeSkill, "es");
 				DB.setValue(nodeSkill, "es." .. sSourceSkill, "number", nSynergyMod);
 				
 				CalculateSynergy(nodeSkill);
@@ -63,11 +60,10 @@ function SetSynergyValue(nodeChar, sSourceSkill, nSynergyMod)
 end
 
 function CalculateSynergy(nodeSkill)
-	local tAllSynergies = DB.getChildren(nodeSkill, "es");
 	local totalSynergyMod = 0;
 
-	for _,v in pairs(tAllSynergies) do
-		totalSynergyMod = totalSynergyMod + DB.getValue(v, "", 0);
+	for _,nodeES in ipairs(DB.getChildList(nodeSkill, "es")) do
+		totalSynergyMod = totalSynergyMod + DB.getValue(nodeES, "", 0);
 	end
 
 	DB.setValue(nodeSkill, "synergy", "number", totalSynergyMod);
