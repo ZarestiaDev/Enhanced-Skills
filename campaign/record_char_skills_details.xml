@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+    <template name="skillpointdetails_field">
+        <basicnumber>
+			<anchored width="32" height="20">
+				<right offset="-35" />
+			</anchored>
+			<script>
+                function onInit()
+                    onValueChanged();
+                end
+
+                function onValueChanged()
+                    EnhancedSkillManager.RecalculateSkills(window.getDatabaseNode());
+                end
+            </script>
+		</basicnumber>
+    </template>   
+
+    <windowclass name="charsheet_skillpointdetails" copy="charsheethelper_base">
+		<sizelimits>
+			<minimum width="250" height="275" />
+		</sizelimits>
+		<sheetdata>
+			<windowtitlebar_charsheethelper name="title">
+				<prefix>char_skillpointdetails_title</prefix>
+			</windowtitlebar_charsheethelper>
+
+			<area_content_framed_groupbox name="skillpointdetailsframe" />
+
+			<label name="total_label">
+				<anchored to="skillpointdetailsframe" position="insidetopleft" offset="15,20" />
+				<static textres="char_label_skillpointdetails_total" />
+			</label>
+			<basicnumber name="skillpoints" source="es.totalskillranks">
+				<anchored width="32" height="20">
+                    <right offset="-35" />
+					<top parent="total_label" />
+				</anchored>
+				<readonly />
+			</basicnumber>
+
+			<label name="base_label">
+				<anchored to="total_label" position="belowleft" offset="0,28" />
+				<static textres="char_label_skillpointdetails_base" />
+			</label>
+			<skillpointdetails_field name="skillpoints_base" source="es.baseskillranks">
+				<anchored>
+					<top parent="base_label" />
+				</anchored>
+				<readonly />
+			</skillpointdetails_field>
+
+			<label name="feats_label">
+				<anchored to="base_label" position="belowleft" offset="0,28" />
+				<static textres="char_label_skillpointdetails_feat" />
+			</label>
+			<skillpointdetails_field name="skillpoints_feats" source="es.featskillranks">
+				<anchored>
+					<top parent="feats_label" />
+				</anchored>
+			</skillpointdetails_field>
+
+			<label name="misc_label">
+				<anchored to="feats_label" position="belowleft" offset="0,28" />
+				<static textres="char_label_skillpointdetails_misc" />
+			</label>
+			<skillpointdetails_field name="skillpoints_misc" source="es.miscskillranks">
+				<anchored>
+					<top parent="misc_label" />
+				</anchored>
+			</skillpointdetails_field>
+		</sheetdata>
+	</windowclass>	
+</root>

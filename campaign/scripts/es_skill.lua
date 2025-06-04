@@ -13,14 +13,15 @@ end
 -- Zarestia adds CalculateSkills function
 function CalculateSkills()
     local nodeChar = getDatabaseNode();
-    local nTotalSkillRanks = 0;
+    local nBaseSkillRanks = 0;
 
     for _,nodeClass in pairs(DB.getChildList(DB.getChild(nodeChar, "classes"))) do
         local nSkillRanks = DB.getValue(nodeClass, "skillranks", 0);
-        nTotalSkillRanks = nTotalSkillRanks + nSkillRanks;
+        nBaseSkillRanks = nBaseSkillRanks + nSkillRanks;
     end
 
-    DB.setValue(nodeChar, "es.totalskillranks", "number", nTotalSkillRanks);
+    DB.setValue(nodeChar, "es.baseskillranks", "number", nBaseSkillRanks);
+    EnhancedSkillManager.RecalculateSkills(getDatabaseNode());
 end
 
 function onLockModeChanged(bReadOnly)

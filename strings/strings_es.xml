@@ -11,4 +11,9 @@
   <string name="char_label_skillpointsspentfrom">/</string>
   <string name="char_label_skillsynergy">Syn</string>
   <string name="char_tooltip_skillsynergy">Synergy</string>
+	<string name="char_skillpointdetails_title">Skill Points</string>
+  <string name="char_label_skillpointdetails_total">Total Skill Points</string>
+  <string name="char_label_skillpointdetails_base">Base Skills Points</string>
+  <string name="char_label_skillpointdetails_feat">Feat Skills Points</string>
+  <string name="char_label_skillpointdetails_misc">Misc. Skill Points</string>
 </root>

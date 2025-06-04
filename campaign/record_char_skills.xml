@@ -21,6 +21,16 @@
 				<readonly />
 				<nodrag />
 			</simplenumber>
+			<!-- Add skill details button -->
+			<buttoncontrol name="skillpointdetail_button">
+				<anchored to="totalskillpoints" position="right" offset="5" width="15" />
+				<state icon="button_details" pressed="button_details_down" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("charsheet_skillpointdetails", window.getDatabaseNode());
+					end
+				</script>
+			</buttoncontrol>
 
 			<!-- Add syngery label -->
 			<label_list_content_number_right name="char_label_skillsynergy" insertbefore="label_ability">

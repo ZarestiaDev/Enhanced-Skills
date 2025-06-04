@@ -68,3 +68,12 @@ function CalculateSynergy(nodeSkill)
 
 	DB.setValue(nodeSkill, "synergy", "number", totalSynergyMod);
 end
+
+function RecalculateSkills(nodeChar)
+    local nBase = DB.getValue(nodeChar, "es.baseskillranks", 0);
+    local nFeat = DB.getValue(nodeChar, "es.featskillranks", 0);
+    local nMisc = DB.getValue(nodeChar, "es.miscskillranks", 0);
+
+    local nTotal = nBase + nFeat + nMisc;
+    DB.setValue(nodeChar, "es.totalskillranks", "number", nTotal);
+end
