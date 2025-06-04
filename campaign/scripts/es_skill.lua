@@ -2,6 +2,7 @@
 function onInit()
     CalculateSkills()
     DB.addHandler(DB.getPath(getDatabaseNode(), "classes"), "onChildUpdate", CalculateSkills)
+    self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
 end
 
 -- Zarestia adds closing handler check whether skill ranks get adjusted
@@ -20,4 +21,9 @@ function CalculateSkills()
     end
 
     DB.setValue(nodeChar, "es.totalskillranks", "number", nTotalSkillRanks);
+end
+
+function onLockModeChanged(bReadOnly)
+    local tFields = { "skills_iadd_profession", "skills_iadd_perform", "skills_iadd_knowledge", "skills_iadd_craft", "skills_iadd", };
+    WindowManager.callSafeControlsSetLockMode(self, tFields, bReadOnly);
 end
