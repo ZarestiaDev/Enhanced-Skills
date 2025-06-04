@@ -6,22 +6,9 @@
 -->
 
 <root>
-	<windowclass name="charsheet_skills">
+	<windowclass name="charsheet_skills" merge="join">
 		<script file="campaign/scripts/es_skill.lua" />
 		<sheetdata>
-			<frame_char name="skillpointframe">
-				<bounds>15,0,-29,50</bounds>
-			</frame_char>
-			<label name="spent_label">
-				<anchored to="skillpointframe" position="insidetopleft" offset="15,15" />
-				<static textres="char_label_skillpointsspent" />
-			</label>
-			<simplenumber name="spentskillpoints" source="skillpoints.spent">
-				<anchored to="spent_label" position="righthigh" offset="10,0" width="32" height="20" />
-				<frame name="fieldlight" offset="7,5,7,5" />
-				<readonly />
-				<nodrag />
-			</simplenumber>
 			<!-- Added slash label -->
 			<label name="spent_label_from">
 				<anchored to="spentskillpoints" position="righthigh" offset="7" />
@@ -34,180 +21,21 @@
 				<readonly />
 				<nodrag />
 			</simplenumber>
-			<button_iedit name="skills_iedit">
-				<anchored to="skillpointframe" position="insidetopright" offset="25,15" />
-				<target>skills</target>
-				<script>
-					function onValueChanged()
-						local bEdit = (getValue() == 1);
-						
-						window.skills.update();
-					end
-				</script>
-			</button_iedit>
-			<buttoncontrol name="skills_iadd_profession">
-				<anchored to="skills_iedit" position="lefthigh" offset="5,0" width="20" height="20" />
-				<icon normal="button_skillpr" pressed="button_skillpr_down" />
-				<tooltip textres="char_tooltip_skilladdprofession" />
-				<script>
-					function onButtonPress()
-						window.skills.addNewInstance(Interface.getString("skill_value_profession"));
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="skills_iadd_perform">
-				<anchored to="skills_iadd_profession" position="lefthigh" offset="5,0" width="20" height="20" />
-				<icon normal="button_skillpe" pressed="button_skillpe_down" />
-				<tooltip textres="char_tooltip_skilladdperform" />
-				<script>
-					function onButtonPress()
-						window.skills.addNewInstance(Interface.getString("skill_value_perform"));
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="skills_iadd_knowledge">
-				<anchored to="skills_iadd_perform" position="lefthigh" offset="5,0" width="20" height="20" />
-				<icon normal="button_skillkn" pressed="button_skillkn_down" />
-				<tooltip textres="char_tooltip_skilladdknowledge" />
-				<script>
-					function onButtonPress()
-						window.skills.addNewInstance(Interface.getString("skill_value_knowledge"));
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="skills_iadd_craft">
-				<anchored to="skills_iadd_knowledge" position="lefthigh" offset="5,0" width="20" height="20" />
-				<icon normal="button_skillcr" pressed="button_skillcr_down" />
-				<tooltip textres="char_tooltip_skilladdcraft" />
-				<script>
-					function onButtonPress()
-						window.skills.addNewInstance(Interface.getString("skill_value_craft"));
-					end
-				</script>
-			</buttoncontrol>
-			<button_iadd name="skills_iadd">
-				<anchored to="skills_iadd_craft" position="lefthigh" offset="5,0" width="20" height="20" />
-				<target>skills</target>
-				<tooltip textres="char_tooltip_skilladd" />
-			</button_iadd>
-
-			<frame_char name="skillframe">
-				<bounds>15,50,-30,-3</bounds>
-			</frame_char>
-			<!-- Zarestia adding T header -->
-			<label name="trainedonly_header">
-				<anchored to="skillframe" position="insidetopleft" offset="16,10" />
-				<static textres="label_trained" />
-				<tooltip textres="tooltip_trained" />
-			</label>
-			<genericcontrol>
-				<anchored to="skillframe" position="insidetopleft" offset="27,15" width="10" height="10" />
-				<icon>char_quicklist</icon>
-				<tooltip textres="char_tooltip_skillshowmini" />
-			</genericcontrol>
-			<genericcontrol>
-				<anchored to="skillframe" position="insidetopleft" offset="43,15" width="10" height="10" />
-				<icon>char_encumbrance</icon>
-				<tooltip textres="char_tooltip_skillclass" />
-			</genericcontrol>
-			<label>
-				<anchored to="skillframe" position="insidetopleft" offset="95,10" />
-				<static textres="char_label_skillname" />
-			</label>
-
-			<genericcontrol name="rightanchor">
-				<anchored to="skillframe" width="0" height="0">
-					<top offset="10" />
-					<right offset="-25" />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<genericcontrol name="idelete_header">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-2" />
-				</anchored>
-				<disabled />
-				<invisible />
-			</genericcontrol>
-			<label>
-				<anchored to="rightanchor" width="44">
-					<top />
-					<right anchor="left" relation="relative" offset="-27" />
-				</anchored>
-				<static textres="char_label_skilltotal" />
-				<center />
-			</label>
-			<label>
-				<anchored to="rightanchor" width="32">
-					<top />
-					<right anchor="left" relation="relative" offset="-15" />
-				</anchored>
-				<static textres="char_label_skillmisc" />
-				<center />
-			</label>
-			<label>
-				<anchored to="rightanchor" width="77">
-					<top />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<center />
-				<static textres="char_label_skillability" />
-			</label>
-			<label>
-				<anchored to="rightanchor" width="42">
-					<top />
-					<right anchor="left" relation="relative" offset="0" />
-				</anchored>
-				<center />
-				<static textres="char_label_skillranks" />
-			</label>
-
-			<list_charskill name="skills">
-				<anchored to="skillframe">
-					<top offset="30" />
-					<left offset="10" />
-					<right offset="-25" />
-					<bottom offset="-15" />
-				</anchored>
-			</list_charskill>
-			<scrollbar>
-				<anchored to="skills" />
-				<target>skills</target>
-			</scrollbar>
 		</sheetdata>
 	</windowclass>
-
 
 	<windowclass name="char_skill" merge="join">
 		<script file="campaign/scripts/char_skill.lua" />
 		<sheetdata>
 			<!-- Add T -->
-            <label name="trainedonly">
-                <anchored>
-					<top offset="2" />
-					<left offset="6" />
-                </anchored>
+            <label name="trainedonly" insertbefore="armorwidget">
+				<anchored to="rightanchor">
+					<top offset="3" />
+					<right relation="relative" offset="-5" postoffset="-5" />
+				</anchored>
                 <static textres="label_trained" />
 				<invisible />
             </label>
-
-			<!-- Changed bounds -->
-			<button_checkbox name="showonminisheet">
-				<bounds>16,6,12,12</bounds>
-			</button_checkbox>
-			<button_checkbox name="state">
-				<bounds>32,6,12,12</bounds>
-			</button_checkbox>
-
-			<!-- Changed left offset -->
-			<stringu name="label">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="50" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</stringu>
 		</sheetdata>
 	</windowclass>
 </root>
