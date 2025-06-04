@@ -7,7 +7,7 @@
 
 <root>
 	<template name="number_charskillranks">
-		<basicnumber>
+		<number_listitem_right>
 			<delaykeyupdate />
 			<hideonvalue>0</hideonvalue>
 			<nodrag />
@@ -19,6 +19,9 @@
 				end
 
 				function onWheel(notches)
+					if isReadOnly() then
+						return false;
+					end
 					if not Input.isControlPressed() then
 						return false;
 					end
@@ -34,16 +37,15 @@
 
 				function onValueChanged()
 					CharManager.updateSkillPoints(DB.getChild(window.getDatabaseNode(), "..."));
-                    -- Zarestia adding function
+					-- Zarestia adding function
                     EnhancedSkillManager.SetSynergy(window.getDatabaseNode());
 				end
 			</script>
-		</basicnumber>
+		</number_listitem_right>
 	</template>
 
 	<template name="number_charskilltotal">
-		<number_linked>
-			<frame name="fieldlight" offset="7,5,7,5" />
+		<number_listitem_linked_right>
 			<displaysign />
 			<rollable />
 			<hideonvalue>0</hideonvalue>
@@ -59,10 +61,10 @@
 			<script>
 				function onSourceValue(source, sourcename)
 					if sourcename == "ranks" then
-						return math.floor(source.getValue());
+						return math.floor(self.getSourceValue("ranks"));
 					elseif sourcename == "...encumbrance.armorcheckpenalty" then
-						local bMaxActive = DB.getValue(sources["...encumbrance.armormaxstatbonusactive"]);
-						if bMaxActive &gt; 0 then
+						local nMaxActive = self.getSourceValue("...encumbrance.armormaxstatbonusactive");
+						if nMaxActive &gt; 0 then
 							return math.min(DB.getValue(window.getDatabaseNode(), "armorcheckmultiplier", 0) * DB.getValue(source), 0);
 						end
 						return 0;
@@ -90,15 +92,13 @@
 					end
 					return true;
 				end
-				
 				function onDragStart(button, x, y, draginfo)
-					return action(draginfo);
+					return self.action(draginfo);
 				end
-
 				function onDoubleClick(x,y)	
-					return action();
+					return self.action();
 				end
 			</script>
-		</number_linked>
+		</number_listitem_linked_right>
 	</template>
 </root>
